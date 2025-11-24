@@ -1,6 +1,7 @@
 # Ignore data directory
 data/Processed_FakeAVCeleb/
 E:\Processed_FakeAVCeleb\
+venv/
 
 # Ignore checkpoints and logs
 checkpoints/
