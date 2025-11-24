@@ -1,0 +1,13 @@
+# Ignore data directory
+data/Processed_FakeAVCeleb/
+E:\Processed_FakeAVCeleb\
+
+# Ignore checkpoints and logs
+checkpoints/
+logs/
+
+# Ignore Python cache and temporary files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
