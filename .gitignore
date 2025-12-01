@@ -4,8 +4,8 @@ E:\Processed_FakeAVCeleb\
 venv/
 
 # Ignore checkpoints and logs
-checkpoints/
-logs/
+#checkpoints/
+#logs/
 
 # Ignore Python cache and temporary files
 __pycache__/
