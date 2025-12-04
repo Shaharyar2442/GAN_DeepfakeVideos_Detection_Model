@@ -15,9 +15,13 @@ from models.visionsnare import VisionSnare
 
 # --- Configuration ---
 # UPDATE THIS PATH to your actual test data location
+<<<<<<< HEAD
 #TEST_DATA_ROOT = r"/home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb"
 TEST_DATA_ROOT = r"/home/moazzam/Documents/FAce_Forensics/preprocessed"
 
+=======
+TEST_DATA_ROOT = r"E:\test_data"
+>>>>>>> 5418138c08e6089b035ea1ef7d61fa113db6d1d6
 CHECKPOINT_PATH = os.path.join("checkpoints", "model_best.pth")
 
 # Hyperparameters (Must match training settings)
