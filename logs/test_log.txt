@@ -1,0 +1,143 @@
+(venv) moazzam@GPU-RAWAL:~/Documents/training_model/GAN_DeepfakeVideos_Detection_Model$ python training/test.py
+--- Testing Configuration ---
+Device: cuda
+GPU Name: NVIDIA GeForce RTX 3080
+Test Data Root: /home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb
+Checkpoint Path: checkpoints/model_best.pth
+-----------------------------
+
+Initializing Test Dataset...
+Scanning data directory: /home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb ...
+Warning: Skipping id03757_00149, found 6 frames, expected 12.
+Warning: Skipping id00842_00043, found 5 frames, expected 12.
+Warning: Skipping id04774_00032, found 7 frames, expected 12.
+Warning: Skipping id08652_00006, found 7 frames, expected 12.
+Warning: Skipping id01105_00083, found 10 frames, expected 12.
+Warning: Skipping id06594_00002, found 10 frames, expected 12.
+Warning: Skipping id01236_00005, found 5 frames, expected 12.
+Warning: Skipping id07058_00010_id00103_qpTVaP4y5DQ, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id05383_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id04111_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id07058_00010_id00769_BqHVSZdoVpM, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id05383_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id06594_00002_id02561_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id01171_00053_id02494_lObg47hQleE, found 8 frames, expected 12.
+Warning: Skipping id00860_00154_id00033_gduDuRWhnlQ, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id00857_yJ7bbvwL4kU, found 7 frames, expected 12.
+Warning: Skipping id06462_00014_id04701_7mnc8w6jRlM, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id00740_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id04884_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00391_00052_id01856_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id04884_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id08652_00006_id06152_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id04884_00028_id02553_QTahH2rc8go, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id04691_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00476_00109_id01597_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id01691_IVtS5z8Jrrk, found 7 frames, expected 12.
+Warning: Skipping id04774_00032_id04789_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id06594_00002_id06535_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id00476_00109_id00173_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id08652_00006_id04222_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id03344_vyNnOo6lU0o, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id09143_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id04537_G1e1UFopjfI, found 7 frames, expected 12.
+Warning: Skipping id08652_00006, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id00685_Hgrz1Tbmix4, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id06807_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01171_00053_id01544_uBo9585VW2A, found 8 frames, expected 12.
+Warning: Skipping id01171_00053_id02342_RJPBPhJB8TA, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id08299_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id06594_00002_id04726_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id06462_00014_id03379_A32nCObAHiI, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id04687_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00476_00109_id01637_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id01236_00005_id00391_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id07058_00010_id08313_t6WZ9KCaXBM, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id01392_fF-g0KFJ7lg, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id06355_YT0pXXvISi8, found 11 frames, expected 12.
+Warning: Skipping id08652_00006_id06467_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id00773_2j3lUETJ57I, found 8 frames, expected 12.
+Warning: Skipping id04774_00032_id02493_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id00476_UgdYVJ6xPYg, found 9 frames, expected 12.
+Warning: Skipping id00476_00109_id02316_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id03897_00021_id04490_G00MMIdUOTc_faceswap, found 11 frames, expected 12.
+Warning: Skipping id06462_00014_id06060___Bf93SjJP0, found 11 frames, expected 12.
+Warning: Skipping id00860_00154_id00414_d3N2NrpGSp0, found 6 frames, expected 12.
+Warning: Skipping id06594_00002, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id01215_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id07195_wXqfHGtaBn4, found 6 frames, expected 12.
+Warning: Skipping id00476_00109_id02296_wavtolip, found 6 frames, expected 12.
+Warning: Skipping id01598_00044_id01597_52WEZxe4_GE, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id07200_quCElxMhW6g, found 6 frames, expected 12.
+Warning: Skipping id04774_00032_id06269_Jm9bEizIGBE_faceswap, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id04562_qio_Gs7wjvY, found 10 frames, expected 12.
+Warning: Skipping id01598_00044_id00518_qm7oQcDg4oI, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id02332_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00391_00052_id02494_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id07058_00010_id07210_0160kET2rUM, found 8 frames, expected 12.
+Warning: Skipping id00860_00154_id00459_ubskcDDe7kM, found 6 frames, expected 12.
+Warning: Skipping id00476_00109_id01544_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id06594_00002_id01215_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id00391_TjJgUZaenWI, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id02040_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id01171_00053_id00166_PQV2ZbJBLNk, found 8 frames, expected 12.
+Warning: Skipping id04774_00032_id00597_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01171_00053_id01933_I5XXxgK7QpE, found 8 frames, expected 12.
+Warning: Skipping id01236_00005_id01452_wavtolip, found 6 frames, expected 12.
+Warning: Skipping id01171_00053_id01717_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id02365_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01236_00005_id01835_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id01598_00044_id01170_7eoTTk4xyNo, found 6 frames, expected 12.
+Warning: Skipping id01171_00053_id01170_7eoTTk4xyNo, found 8 frames, expected 12.
+Warning: Skipping id00476_00109_id01779_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id00816_00118_id04554_8rSKsBhAaDo, found 11 frames, expected 12.
+Warning: Skipping id01598_00044_id00391_TjJgUZaenWI, found 7 frames, expected 12.
+Warning: Skipping id04774_00032_id01589_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00166_00010_id01920_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id01171_00053_id01236_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00860_00154_id07165_oJ_iy16IBTM, found 6 frames, expected 12.
+Warning: Skipping id06462_00014_id02807_eFC0STvhou4, found 11 frames, expected 12.
+Warning: Skipping id01598_00044_id01528_SBAS9Kcb8QY, found 7 frames, expected 12.
+Warning: Skipping id01236_00005_id00830_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id04774_00032_id05268_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01598_00044_id01995_YUR9wTypwIo, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id03180_6wNTK7NkOd8, found 6 frames, expected 12.
+Warning: Skipping id07058_00010_id04562_qio_Gs7wjvY, found 7 frames, expected 12.
+Warning: Skipping id06462_00014_id00935_09fNE0b4Dlg, found 11 frames, expected 12.
+Warning: Skipping id06594_00002_id01204_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id01236_00005_id02342_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id00816_00118_id07200_quCElxMhW6g, found 11 frames, expected 12.
+Warning: Skipping id06594_00002_id00863_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id02494_lObg47hQleE_faceswap, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id05383_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id08652_00006_id08652_wavtolip, found 7 frames, expected 12.
+Found 5700 valid video sequences.
+Test dataset loaded. Total samples: 5700
+Initializing VisionSnare Model...
+VisionSnare initialized with CNN feature dim: 512
+Loading weights from checkpoints/model_best.pth...
+/home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/training/test.py:109: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
+Model weights loaded successfully.
+
+--- Starting Evaluation ---
+Testing: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 713/713 [02:32<00:00,  4.68batch/s]
+
+--- Final Test Results ---
+Final Test Loss: 0.0229
+Final Test Accuracy: 0.9946 (99.46%)
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        Real     0.9348    0.9898    0.9615       391
+        Fake     0.9992    0.9949    0.9971      5309
+
+    accuracy                         0.9946      5700
+   macro avg     0.9670    0.9923    0.9793      5700
+weighted avg     0.9948    0.9946    0.9946      5700
+
+Confusion Matrix:
+[[ 387    4]
+ [  27 5282]]
+(Top-Left: TN, Top-Right: FP, Bottom-Left: FN, Bottom-Right: TP)

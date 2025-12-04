@@ -1,0 +1,80 @@
+(venv) moazzam@GPU-RAWAL:~/Documents/training_model/GAN_DeepfakeVideos_Detection_Model$ python training/test.py
+--- Testing Configuration ---
+Device: cuda
+GPU Name: NVIDIA GeForce RTX 3080
+Test Data Root: /home/moazzam/Documents/FAce_Forensics/preprocessed
+Checkpoint Path: checkpoints/model_best.pth
+-----------------------------
+
+Initializing Test Dataset...
+Scanning data directory: /home/moazzam/Documents/FAce_Forensics/preprocessed ...
+Warning: Skipping 168, found 8 frames, expected 12.
+Warning: Skipping 062, found 5 frames, expected 12.
+Warning: Skipping 254, found 6 frames, expected 12.
+Warning: Skipping 210, found 11 frames, expected 12.
+Warning: Skipping 677, found 10 frames, expected 12.
+Warning: Skipping 716, found 8 frames, expected 12.
+Warning: Skipping 565, found 10 frames, expected 12.
+Warning: Skipping 897, found 7 frames, expected 12.
+Warning: Skipping 055, found 10 frames, expected 12.
+Warning: Skipping 943, found 6 frames, expected 12.
+Warning: Skipping 556, found 11 frames, expected 12.
+Warning: Skipping 712, found 6 frames, expected 12.
+Warning: Skipping 046, found 9 frames, expected 12.
+Warning: Skipping 644, found 6 frames, expected 12.
+Warning: Skipping 321, found 10 frames, expected 12.
+Warning: Skipping 951, found 5 frames, expected 12.
+Warning: Skipping 794, found 11 frames, expected 12.
+Warning: Skipping 589, found 6 frames, expected 12.
+Warning: Skipping 904_046, found 11 frames, expected 12.
+Warning: Skipping 677_671, found 7 frames, expected 12.
+Warning: Skipping 062_066, found 5 frames, expected 12.
+Warning: Skipping 254_261, found 6 frames, expected 12.
+Warning: Skipping 565_589, found 10 frames, expected 12.
+Warning: Skipping 321_288, found 10 frames, expected 12.
+Warning: Skipping 542_520, found 5 frames, expected 12.
+Warning: Skipping 716_712, found 10 frames, expected 12.
+Warning: Skipping 633_529, found 5 frames, expected 12.
+Warning: Skipping 572_554, found 5 frames, expected 12.
+Warning: Skipping 589_565, found 7 frames, expected 12.
+Warning: Skipping 168_222, found 5 frames, expected 12.
+Warning: Skipping 107_109, found 8 frames, expected 12.
+Warning: Skipping 897_969, found 6 frames, expected 12.
+Warning: Skipping 878_866, found 10 frames, expected 12.
+Warning: Skipping 943_942, found 6 frames, expected 12.
+Warning: Skipping 712_716, found 6 frames, expected 12.
+Warning: Skipping 399_488, found 10 frames, expected 12.
+Warning: Skipping 055_147, found 11 frames, expected 12.
+Warning: Skipping 811_920, found 9 frames, expected 12.
+Warning: Skipping 556_588, found 10 frames, expected 12.
+Warning: Skipping 456_435, found 7 frames, expected 12.
+Found 109 valid video sequences.
+Test dataset loaded. Total samples: 109
+Initializing VisionSnare Model...
+VisionSnare initialized with CNN feature dim: 512
+Loading weights from checkpoints/model_best.pth...
+/home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/training/test.py:111: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
+Model weights loaded successfully.
+
+--- Starting Evaluation ---
+Testing: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14/14 [00:03<00:00,  4.50batch/s]
+
+--- Final Test Results ---
+Final Test Loss: 1.5219
+Final Test Accuracy: 0.7064 (70.64%)
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        Real     0.7400    0.6607    0.6981        56
+        Fake     0.6780    0.7547    0.7143        53
+
+    accuracy                         0.7064       109
+   macro avg     0.7090    0.7077    0.7062       109
+weighted avg     0.7098    0.7064    0.7060       109
+
+Confusion Matrix:
+[[37 19]
+ [13 40]]
+(Top-Left: TN, Top-Right: FP, Bottom-Left: FN, Bottom-Right: TP)
