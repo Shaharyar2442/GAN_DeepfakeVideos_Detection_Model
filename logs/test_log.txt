@@ -126,6 +126,7 @@ Testing: 100%|██████████████████████
 --- Final Test Results ---
 Final Test Loss: 0.0229
 Final Test Accuracy: 0.9946 (99.46%)
+Final Test AUC: 0.9969
 
 Classification Report:
               precision    recall  f1-score   support
