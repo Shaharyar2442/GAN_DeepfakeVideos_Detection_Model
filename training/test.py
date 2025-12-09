@@ -5,31 +5,30 @@ from tqdm import tqdm
 import sys
 import os
 import numpy as np
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_auc_score
 
-# Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from data.dataset import FakeAVCelebSequenceDataset, get_default_transform
 from models.visionsnare import VisionSnare
 
-# --- Configuration ---
-# UPDATE THIS PATH to your actual test data location
-<<<<<<< HEAD
-#TEST_DATA_ROOT = r"/home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb"
-TEST_DATA_ROOT = r"/home/moazzam/Documents/FAce_Forensics/preprocessed"
 
-=======
-TEST_DATA_ROOT = r"E:\test_data"
->>>>>>> 5418138c08e6089b035ea1ef7d61fa113db6d1d6
+#TEST_DATA_ROOT = r"/home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb"
+#TEST_DATA_ROOT = r"/home/moazzam/Documents/FAce_Forensics/preprocessed"
+
+
+#TEST_DATA_ROOT = r"E:\test_data"
+#TEST_DATA_ROOT = r"E:\Processed_FakeAVCeleb\test_data"
+TEST_DATA_ROOT = r"E:\DeepfakeTimit_Test_Data"
+
 CHECKPOINT_PATH = os.path.join("checkpoints", "model_best.pth")
 
-# Hyperparameters (Must match training settings)
+# Hyperparameters 
 BATCH_SIZE = 8
 SEQUENCE_LENGTH = 12
 LSTM_HIDDEN_DIM = 512
 
-# --- Setup Device ---
+# Setup Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"--- Testing Configuration ---")
 print(f"Device: {device}")
@@ -39,21 +38,22 @@ print(f"Test Data Root: {TEST_DATA_ROOT}")
 print(f"Checkpoint Path: {CHECKPOINT_PATH}")
 print("-----------------------------\n")
 
-# --- Helper Functions ---
+# Helper Functions
 
 def calculate_predictions(logits):
-    """Converts logits to binary predictions."""
+    # Converts logits to binary predictions
     probs = torch.sigmoid(logits)
     preds = (probs > 0.5).float()
     return preds
 
 def test(model, test_loader, criterion, device):
-    """Runs the model on the test set and collects predictions."""
-    model.eval() # Set model to evaluation mode
+    # Runs the model on the test set and collects predictions
+    model.eval() # Setting model to evaluation mode
     
     running_loss = 0.0
     all_preds = []
     all_labels = []
+    all_probs = []
     
     # No gradient calculation needed for testing
     with torch.no_grad():
@@ -75,14 +75,15 @@ def test(model, test_loader, criterion, device):
             # Store predictions and labels for metrics
             all_preds.extend(preds.cpu().numpy().flatten())
             all_labels.extend(labels.cpu().numpy().flatten())
+            all_probs.extend(torch.sigmoid(logits).cpu().numpy().flatten())
             
     total_loss = running_loss / len(test_loader.dataset)
     
-    return total_loss, np.array(all_preds), np.array(all_labels)
+    return total_loss, np.array(all_preds), np.array(all_labels), np.array(all_probs)
 
-# --- Main Test Function ---
+# Main Test Function
 def main():
-    # 1. Check paths
+    # Check paths
     if not os.path.exists(TEST_DATA_ROOT):
         print(f"Error: Test data directory not found at {TEST_DATA_ROOT}")
         return
@@ -90,7 +91,7 @@ def main():
         print(f"Error: Best model checkpoint not found at {CHECKPOINT_PATH}. Have you trained yet?")
         return
 
-    # 2. Data Loading
+    # Data Loading
     print("Initializing Test Dataset...")
     test_dataset = FakeAVCelebSequenceDataset(
         root_dir=TEST_DATA_ROOT,
@@ -105,29 +106,31 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
     print(f"Test dataset loaded. Total samples: {len(test_dataset)}")
 
-    # 3. Model Setup
+    #  Model Setup
     print("Initializing VisionSnare Model...")
     model = VisionSnare(lstm_hidden_dim=LSTM_HIDDEN_DIM)
     model = model.to(device)
     
-    # 4. Load Best Checkpoint
+    #  Load Best Checkpoint
     print(f"Loading weights from {CHECKPOINT_PATH}...")
     checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
     print("Model weights loaded successfully.")
 
-    # 5. Loss Function
+    # Loss Function
     criterion = nn.BCEWithLogitsLoss()
 
-    # 6. Run Testing
+    # Run Testing
     print("\n--- Starting Evaluation ---")
-    test_loss, preds, labels = test(model, test_loader, criterion, device)
+    test_loss, preds, labels, probs = test(model, test_loader, criterion, device)
     
-    # 7. Calculate and Print Metrics
+    #  Calculate and Print Metrics
     print("\n--- Final Test Results ---")
     accuracy = accuracy_score(labels, preds)
+    auc_score = roc_auc_score(labels, probs) # Calculate AUC
     print(f"Final Test Loss: {test_loss:.4f}")
     print(f"Final Test Accuracy: {accuracy:.4f} ({accuracy*100:.2f}%)")
+    print(f"Final Test AUC: {auc_score:.4f}")
     
     print("\nClassification Report:")
     # target_names maps 0 to 'Real' and 1 to 'Fake'
