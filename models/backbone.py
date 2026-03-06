@@ -75,8 +75,8 @@ class CustomLightweightResNet(nn.Module):
         
         #Input channels is equal to  6
         #Output is 64 channels
-        self.conv1 = nn.Conv2d(6, 64, kernel_size=3, stride=2, padding=1, bias=False)
-        self.bn1 = nn.BatchNorm2d(64) 
+        self.conv1 = nn.Conv2d(6, 64, kernel_size=3, stride=2, padding=1, bias=False)#padding=1 to maintain spatial dimensions
+        self.bn1 = nn.BatchNorm2d(64) #BatchNorm after conv which normalizes the output of the conv layer by adjusting and scaling the activations
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         
