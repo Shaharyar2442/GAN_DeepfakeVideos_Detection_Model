@@ -60,6 +60,8 @@ def sample_frames_with_optical_flow(video_path, threshold, target_count=12):
         
         if mean_magnitude > threshold:
             frames.append(frame)
+            if len(frames) >= target_count:
+                break
         
         prev_gray = gray
 
