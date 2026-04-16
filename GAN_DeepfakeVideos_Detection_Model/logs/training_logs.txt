@@ -1,0 +1,261 @@
+(venv) moazzam@GPU-RAWAL:~/Documents/training_model/GAN_DeepfakeVideos_Detection_Model$ python training/train.py
+--- Training Configuration ---
+Device: cuda
+GPU Name: NVIDIA GeForce RTX 3080
+Data Root: /home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb
+Batch Size: 8
+Validation Split: 20.0%
+------------------------------
+
+Initializing full dataset...
+Scanning data directory: /home/moazzam/Documents/training_model/GAN_DeepfakeVideos_Detection_Model/Processed_FakeAVCeleb ...
+Warning: Skipping id03757_00149, found 6 frames, expected 12.
+Warning: Skipping id00842_00043, found 5 frames, expected 12.
+Warning: Skipping id04774_00032, found 7 frames, expected 12.
+Warning: Skipping id08652_00006, found 7 frames, expected 12.
+Warning: Skipping id01105_00083, found 10 frames, expected 12.
+Warning: Skipping id06594_00002, found 10 frames, expected 12.
+Warning: Skipping id01236_00005, found 5 frames, expected 12.
+Warning: Skipping id07058_00010_id00103_qpTVaP4y5DQ, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id05383_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id04111_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id07058_00010_id00769_BqHVSZdoVpM, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id05383_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id06594_00002_id02561_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id01171_00053_id02494_lObg47hQleE, found 8 frames, expected 12.
+Warning: Skipping id00860_00154_id00033_gduDuRWhnlQ, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id00857_yJ7bbvwL4kU, found 7 frames, expected 12.
+Warning: Skipping id06462_00014_id04701_7mnc8w6jRlM, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id00740_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id04884_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00391_00052_id01856_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id04884_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id08652_00006_id06152_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id04884_00028_id02553_QTahH2rc8go, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id04691_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00476_00109_id01597_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id01691_IVtS5z8Jrrk, found 7 frames, expected 12.
+Warning: Skipping id04774_00032_id04789_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id06594_00002_id06535_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id00476_00109_id00173_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id08652_00006_id04222_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id03344_vyNnOo6lU0o, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id09143_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id04537_G1e1UFopjfI, found 7 frames, expected 12.
+Warning: Skipping id08652_00006, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id00685_Hgrz1Tbmix4, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id06807_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01171_00053_id01544_uBo9585VW2A, found 8 frames, expected 12.
+Warning: Skipping id01171_00053_id02342_RJPBPhJB8TA, found 8 frames, expected 12.
+Warning: Skipping id08652_00006_id08299_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id06594_00002_id04726_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id06462_00014_id03379_A32nCObAHiI, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id04687_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00476_00109_id01637_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id01236_00005_id00391_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id07058_00010_id08313_t6WZ9KCaXBM, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id01392_fF-g0KFJ7lg, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id06355_YT0pXXvISi8, found 11 frames, expected 12.
+Warning: Skipping id08652_00006_id06467_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id07058_00010_id00773_2j3lUETJ57I, found 8 frames, expected 12.
+Warning: Skipping id04774_00032_id02493_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id00476_UgdYVJ6xPYg, found 9 frames, expected 12.
+Warning: Skipping id00476_00109_id02316_wavtolip, found 8 frames, expected 12.
+Warning: Skipping id03897_00021_id04490_G00MMIdUOTc_faceswap, found 11 frames, expected 12.
+Warning: Skipping id06462_00014_id06060___Bf93SjJP0, found 11 frames, expected 12.
+Warning: Skipping id00860_00154_id00414_d3N2NrpGSp0, found 6 frames, expected 12.
+Warning: Skipping id06594_00002, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id01215_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id07195_wXqfHGtaBn4, found 6 frames, expected 12.
+Warning: Skipping id00476_00109_id02296_wavtolip, found 6 frames, expected 12.
+Warning: Skipping id01598_00044_id01597_52WEZxe4_GE, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id07200_quCElxMhW6g, found 6 frames, expected 12.
+Warning: Skipping id04774_00032_id06269_Jm9bEizIGBE_faceswap, found 7 frames, expected 12.
+Warning: Skipping id00816_00118_id04562_qio_Gs7wjvY, found 10 frames, expected 12.
+Warning: Skipping id01598_00044_id00518_qm7oQcDg4oI, found 7 frames, expected 12.
+Warning: Skipping id06594_00002_id02332_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00391_00052_id02494_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id07058_00010_id07210_0160kET2rUM, found 8 frames, expected 12.
+Warning: Skipping id00860_00154_id00459_ubskcDDe7kM, found 6 frames, expected 12.
+Warning: Skipping id00476_00109_id01544_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id06594_00002_id01215_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id00391_TjJgUZaenWI, found 8 frames, expected 12.
+Warning: Skipping id01598_00044_id02040_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id01171_00053_id00166_PQV2ZbJBLNk, found 8 frames, expected 12.
+Warning: Skipping id04774_00032_id00597_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01171_00053_id01933_I5XXxgK7QpE, found 8 frames, expected 12.
+Warning: Skipping id01236_00005_id01452_wavtolip, found 6 frames, expected 12.
+Warning: Skipping id01171_00053_id01717_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id08652_00006_id02365_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01236_00005_id01835_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id01598_00044_id01170_7eoTTk4xyNo, found 6 frames, expected 12.
+Warning: Skipping id01171_00053_id01170_7eoTTk4xyNo, found 8 frames, expected 12.
+Warning: Skipping id00476_00109_id01779_wavtolip, found 11 frames, expected 12.
+Warning: Skipping id00816_00118_id04554_8rSKsBhAaDo, found 11 frames, expected 12.
+Warning: Skipping id01598_00044_id00391_TjJgUZaenWI, found 7 frames, expected 12.
+Warning: Skipping id04774_00032_id01589_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id00166_00010_id01920_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id01171_00053_id01236_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id00860_00154_id07165_oJ_iy16IBTM, found 6 frames, expected 12.
+Warning: Skipping id06462_00014_id02807_eFC0STvhou4, found 11 frames, expected 12.
+Warning: Skipping id01598_00044_id01528_SBAS9Kcb8QY, found 7 frames, expected 12.
+Warning: Skipping id01236_00005_id00830_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id04774_00032_id05268_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id01598_00044_id01995_YUR9wTypwIo, found 7 frames, expected 12.
+Warning: Skipping id00860_00154_id03180_6wNTK7NkOd8, found 6 frames, expected 12.
+Warning: Skipping id07058_00010_id04562_qio_Gs7wjvY, found 7 frames, expected 12.
+Warning: Skipping id06462_00014_id00935_09fNE0b4Dlg, found 11 frames, expected 12.
+Warning: Skipping id06594_00002_id01204_wavtolip, found 10 frames, expected 12.
+Warning: Skipping id01236_00005_id02342_wavtolip, found 5 frames, expected 12.
+Warning: Skipping id00816_00118_id07200_quCElxMhW6g, found 11 frames, expected 12.
+Warning: Skipping id06594_00002_id00863_wavtolip, found 9 frames, expected 12.
+Warning: Skipping id01171_00053_id02494_lObg47hQleE_faceswap, found 11 frames, expected 12.
+Warning: Skipping id04774_00032_id05383_wavtolip, found 7 frames, expected 12.
+Warning: Skipping id08652_00006_id08652_wavtolip, found 7 frames, expected 12.
+Found 5700 valid video sequences.
+Total samples: 5700. Splitting into Train: 4560, Val: 1140
+Initializing VisionSnare Model...
+VisionSnare initialized with CNN feature dim: 512
+-> No checkpoint found at checkpoints/checkpoint_latest.pth. Starting fresh.
+
+--- Starting Training ---
+Epoch 1/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:12<00:00,  2.96batch/s, train_loss=0.0148]
+                                                                                                                                                                                                                                
+End of Epoch 1 Summary:
+Train Loss: 0.2172 | Train Acc: 0.9298
+Val Loss:   0.1476 | Val Acc:   0.9360
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.0000 -> 0.9360). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 2/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:00<00:00,  3.15batch/s, train_loss=0.1274]
+                                                                                                                                                                                                                                
+End of Epoch 2 Summary:
+Train Loss: 0.1433 | Train Acc: 0.9493
+Val Loss:   0.1407 | Val Acc:   0.9404
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9360 -> 0.9404). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 3/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:04<00:00,  3.09batch/s, train_loss=0.0129]
+                                                                                                                                                                                                                                
+End of Epoch 3 Summary:
+Train Loss: 0.1038 | Train Acc: 0.9605
+Val Loss:   0.0815 | Val Acc:   0.9684
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9404 -> 0.9684). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 4/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:05<00:00,  3.07batch/s, train_loss=0.3735]
+                                                                                                                                                                                                                                
+End of Epoch 4 Summary:
+Train Loss: 0.0851 | Train Acc: 0.9708
+Val Loss:   0.0625 | Val Acc:   0.9763
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9684 -> 0.9763). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 5/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:09<00:00,  3.01batch/s, train_loss=0.0122]
+                                                                                                                                                                                                                                
+End of Epoch 5 Summary:
+Train Loss: 0.0763 | Train Acc: 0.9737
+Val Loss:   0.0496 | Val Acc:   0.9825
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9763 -> 0.9825). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 6/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:23<00:00,  2.80batch/s, train_loss=0.1935]
+                                                                                                                                                                                                                                
+End of Epoch 6 Summary:
+Train Loss: 0.0634 | Train Acc: 0.9761
+Val Loss:   0.0522 | Val Acc:   0.9860
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9825 -> 0.9860). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 7/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:12<00:00,  2.96batch/s, train_loss=0.0024]
+                                                                                                                                                                                                                                
+End of Epoch 7 Summary:
+Train Loss: 0.0588 | Train Acc: 0.9803
+Val Loss:   0.0522 | Val Acc:   0.9816
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 8/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:10<00:00,  2.99batch/s, train_loss=0.0068]
+                                                                                                                                                                                                                                
+End of Epoch 8 Summary:
+Train Loss: 0.0510 | Train Acc: 0.9822
+Val Loss:   0.0682 | Val Acc:   0.9798
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 9/20 [Train]: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:14<00:00,  2.93batch/s, train_loss=0.0176]
+                                                                                                                                                                                                                                
+End of Epoch 9 Summary:
+Train Loss: 0.0480 | Train Acc: 0.9853
+Val Loss:   0.0933 | Val Acc:   0.9711
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 10/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:09<00:00,  3.00batch/s, train_loss=0.0078]
+                                                                                                                                                                                                                                
+End of Epoch 10 Summary:
+Train Loss: 0.0462 | Train Acc: 0.9825
+Val Loss:   0.0429 | Val Acc:   0.9877
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9860 -> 0.9877). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 11/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:06<00:00,  3.05batch/s, train_loss=0.1642]
+                                                                                                                                                                                                                                
+End of Epoch 11 Summary:
+Train Loss: 0.0408 | Train Acc: 0.9866
+Val Loss:   0.0561 | Val Acc:   0.9798
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 12/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:04<00:00,  3.08batch/s, train_loss=0.0006]
+                                                                                                                                                                                                                                
+End of Epoch 12 Summary:
+Train Loss: 0.0367 | Train Acc: 0.9871
+Val Loss:   0.0647 | Val Acc:   0.9798
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 13/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:01<00:00,  3.15batch/s, train_loss=0.0045]
+                                                                                                                                                                                                                                
+End of Epoch 13 Summary:
+Train Loss: 0.0356 | Train Acc: 0.9879
+Val Loss:   0.0373 | Val Acc:   0.9886
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9877 -> 0.9886). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 14/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:00<00:00,  3.15batch/s, train_loss=0.0099]
+                                                                                                                                                                                                                                
+End of Epoch 14 Summary:
+Train Loss: 0.0328 | Train Acc: 0.9868
+Val Loss:   0.0807 | Val Acc:   0.9798
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 15/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:02<00:00,  3.13batch/s, train_loss=0.0007]
+                                                                                                                                                                                                                                
+End of Epoch 15 Summary:
+Train Loss: 0.0366 | Train Acc: 0.9893
+Val Loss:   0.0395 | Val Acc:   0.9868
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 16/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:00<00:00,  3.15batch/s, train_loss=0.0002]
+                                                                                                                                                                                                                                
+End of Epoch 16 Summary:
+Train Loss: 0.0367 | Train Acc: 0.9868
+Val Loss:   0.0841 | Val Acc:   0.9711
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 17/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:01<00:00,  3.15batch/s, train_loss=0.0068]
+                                                                                                                                                                                                                                
+End of Epoch 17 Summary:
+Train Loss: 0.0309 | Train Acc: 0.9893
+Val Loss:   0.0391 | Val Acc:   0.9886
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 18/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:01<00:00,  3.15batch/s, train_loss=0.0045]
+                                                                                                                                                                                                                                
+End of Epoch 18 Summary:
+Train Loss: 0.0316 | Train Acc: 0.9914
+Val Loss:   0.0472 | Val Acc:   0.9833
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+Epoch 19/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:01<00:00,  3.14batch/s, train_loss=0.0017]
+                                                                                                                                                                                                                                
+End of Epoch 19 Summary:
+Train Loss: 0.0319 | Train Acc: 0.9899
+Val Loss:   0.0359 | Val Acc:   0.9921
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+*** Found new best validation accuracy! (0.9886 -> 0.9921). Saving model_best.pth ***
+-> Checkpoint saved to checkpoints/model_best.pth
+Epoch 20/20 [Train]: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 570/570 [03:01<00:00,  3.15batch/s, train_loss=0.0004]
+                                                                                                                                                                                                                                
+End of Epoch 20 Summary:
+Train Loss: 0.0240 | Train Acc: 0.9930
+Val Loss:   0.0608 | Val Acc:   0.9781
+-> Checkpoint saved to checkpoints/checkpoint_latest.pth
+
+--- Training Complete ---
