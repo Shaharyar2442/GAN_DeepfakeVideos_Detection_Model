@@ -1,0 +1,24 @@
+Step 1-
+git clone repository
+
+Step 2-
+Create two new folders in parent directory(GAN_DEEPFAKEVIDEOS_DETECTION_MODEL) named checkpoints and logs
+
+Step 3
+Download the dataset from google drive, you can put the dataset folder in the parent directory(GAN_DEEPFAKEVIDEOS_DETECTION_MODEL) aswell
+
+Step 4
+Create virtual environment with the following commands in terminal:
+python -m venv venv
+venv\Scripts\activate
+After these two commands in terminal you will see (venv) before the C:path
+
+Step 5
+Once inside virtual environment run the command : pip install -r requirements.txt 
+Also Install pytorch from official site: https://pytorch.org/get-started/locally/ . 
+Here you will have to check the PC for which Cuda version it has, then accordingly download correct option from website
+
+Step 6
+Once environment and packages all set up go to training/train.py and on line 17 set DATA_ROOT = r""  # Added the path of Processed_FakeAVCeleb here
+
+After this you can run python training/train.py to start training

@@ -1,15 +1,43 @@
-# Ignore data directory
-data/Processed_FakeAVCeleb/
-E:\Processed_FakeAVCeleb\
-venv/
-
-# Ignore checkpoints and logs
-#checkpoints/
-#logs/
-
-# Ignore Python cache and temporary files
+# Python
 __pycache__/
-*.pyc
-.ipynb_checkpoints/
-.DS_Store
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
 .env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Model checkpoints & large binary files
+GAN_DeepfakeVideos_Detection_Model/checkpoints/
+GAN_DeepfakeVideos_Detection_Model/logs/
+GAN_DeepfakeVideos_Detection_Model/data/
+
+# Node
+node_modules/
+frontend/visionsnare/dist/
+frontend/visionsnare/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Misc
+*.log
+*.tmp
+*.swp

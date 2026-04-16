@@ -1,0 +1,159 @@
+# Frontend ↔ Backend Integration for VisionSnare
+
+## Goal
+
+Replace the **fully mocked** detection pipeline in the React frontend with a **real** connection to the VisionSnare PyTorch model. The user uploads a video → it gets preprocessed (optical flow, MTCNN alignment) → fed into the CNN-LSTM model → frontend displays real/fake verdict with confidence score.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **The Pricing page** is currently a cosmetic placeholder — buttons don't do anything. Should we leave it as-is (since it's an FYP demo), remove it entirely, or do you want it functional?
+
+> [!WARNING]  
+> **Frontend text discrepancies detected** — the "How It Works" and "About" pages mention **"16-frame Sequences"** and **"NPR 2×2, 3×3, 4×4"** multi-scale grids. However, the actual model code uses:
+> - **12-frame sequences** (`SEQUENCE_LENGTH = 12`)
+> - **Only 2×2 NPR** ([SpatialNPR](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/models/npr.py#5-49) in [npr.py](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/models/npr.py) uses 2×2 patches only)
+>
+> I will fix these text references to match reality. If you intentionally want to keep the multi-scale language for presentation purposes, let me know.
+
+> [!NOTE]
+> The backend API will run **on the same machine** as the frontend dev server. No cloud deployment is assumed. The model checkpoint [model_best.pth](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/checkpoints/model_best.pth) (44 MB) already exists at [checkpoints/model_best.pth](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/checkpoints/model_best.pth).
+
+---
+
+## Proposed Changes
+
+### Component 1 — FastAPI Backend API
+
+Create a lightweight Python REST API that wraps the existing [predict_video.py](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/utils/predict_video.py) pipeline, exposing a single POST endpoint for video analysis.
+
+#### [NEW] [app.py](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/api/app.py)
+
+A FastAPI application with one endpoint:
+
+- **`POST /api/predict`** — accepts a video file upload (`multipart/form-data`), runs the full pipeline, returns JSON result.
+
+**Logic flow:**
+1. Save uploaded video to a temp directory
+2. Call [sample_frames_with_optical_flow()](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/utils/predict_video.py#29-80) → motion-based frame sampling
+3. Call [align_and_crop_faces()](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/utils/predict_video.py#81-135) → MTCNN face detection & alignment
+4. Load model from [model_best.pth](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/checkpoints/model_best.pth) (cached as a module-level singleton to avoid reloading per request)
+5. Run [predict()](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/utils/predict_video.py#167-211) → get logit → sigmoid → verdict + confidence
+6. Return JSON: `{ "verdict": "fake"|"real", "confidence": 94.2, "raw_score": 0.942 }`
+7. Clean up temp files
+
+**Key design decisions:**
+- Model loaded **once** at startup (not per request) to avoid ~2s load time each time
+- Temporary files cleaned up after prediction
+- Proper error handling for: no face detected, video too short, corrupt file
+- CORS middleware configured for `http://localhost:5173` (Vite dev server)
+
+#### [NEW] [requirements-api.txt](file:///d:/Fyp_Project/GAN_DeepfakeVideos_Detection_Model/requirements-api.txt)
+
+Additional pip dependencies:
+```
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+```
+
+---
+
+### Component 2 — Frontend: Detect Page Integration
+
+Replace the mock [analyze()](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx#33-44) and [finalize()](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx#45-57) functions in [Detect.jsx](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx) with real HTTP calls to the FastAPI backend.
+
+#### [MODIFY] [Detect.jsx](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx)
+
+**Changes:**
+1. **Replace [analyze()](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx#33-44) function** — instead of `setInterval` with random progress, it will `POST` the video file to `/api/predict` using `fetch()` with `FormData`
+2. **Replace [finalize()](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx#45-57) function** — instead of `Math.random()` for verdict, it will parse the JSON response from the backend
+3. **Add error handling** — show user-friendly messages for: backend unreachable, no face detected, video too short
+4. **Progress simulation** — since the backend processes synchronously, we'll show a "processing" animation (the step indicators will still animate to show pipeline progress, but the actual result comes from the real model)
+5. **NPR Grids meta** — change `"2×2, 3×3, 4×4"` → `"2×2"` in the result card
+
+---
+
+### Component 3 — Vite Dev Proxy
+
+#### [MODIFY] [vite.config.js](file:///d:/Fyp_Project/frontend/visionsnare/vite.config.js)
+
+Add a dev proxy to forward `/api` requests to the FastAPI backend at `http://localhost:8000`:
+
+```js
+server: {
+  proxy: {
+    '/api': 'http://localhost:8000'
+  }
+}
+```
+
+---
+
+### Component 4 — Frontend Text Corrections
+
+Fix discrepancies between UI text and actual model behavior.
+
+#### [MODIFY] [HowItWorks.jsx](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/HowItWorks.jsx)
+
+- Step 3 tech pills: `'NPR 2×2', 'NPR 3×3', 'NPR 4×4'` → `'NPR 2×2'`
+- Step 3 model text: remove "3×3, and 4×4" multi-scale references
+- Step 4: `'16-frame Sequences'` → `'12-frame Sequences'`
+- Step 4 model text: "A sequence of 16 weighted feature vectors" → "A sequence of 11 weighted feature vectors"
+
+#### [MODIFY] [About.jsx](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/About.jsx)
+
+- Pipeline array: `'16-frame temporal aggregation'` → `'11-frame temporal aggregation'`
+- Approach section: "2×2, 3×3, and 4×4" → "2×2"
+- Architecture cards: NPR description fix, "16-frame sequence" → "11-frame sequence" (since temporal differencing reduces 12→11)
+- Spatial NPR pipeline step: `'2×2, 3×3, 4×4 pixel-diff grids'` → `'2×2 pixel-diff grids'`
+
+#### [MODIFY] [Detect.jsx](file:///d:/Fyp_Project/frontend/visionsnare/src/pages/Detect.jsx)
+
+- Result card NPR Grids meta: `'2×2, 3×3, 4×4'` → `'2×2'`
+
+---
+
+## Verification Plan
+
+### Automated Tests
+
+1. **Backend API smoke test** — After creating `api/app.py`, start the server and test with curl:
+   ```bash
+   # Terminal 1: Start backend
+   cd d:\Fyp_Project\GAN_DeepfakeVideos_Detection_Model
+   python -m uvicorn api.app:app --host 0.0.0.0 --port 8000
+
+   # Terminal 2: Test endpoint
+   curl -X POST http://localhost:8000/api/predict -F "video=@path/to/test_video.mp4"
+   ```
+   Expected: JSON response with `verdict`, `confidence`, and `raw_score` fields.
+
+2. **Frontend build check** — Ensure no build errors after modifying JSX files:
+   ```bash
+   cd d:\Fyp_Project\frontend\visionsnare
+   npm run build
+   ```
+   Expected: Exit code 0.
+
+### Browser End-to-End Test
+
+1. Start backend: `python -m uvicorn api.app:app --port 8000` from the model directory
+2. Start frontend: `npm run dev` from the frontend directory
+3. Open browser → navigate to `http://localhost:5173`
+4. Click "Detect" in navbar
+5. Upload a short video file (MP4)
+6. Click "Run VisionSnare Detection"
+7. Verify: pipeline animation appears, followed by real verdict + confidence score from the model
+8. Verify: result shows "Deepfake Detected" or "Authentic Video" based on model output (not random)
+
+### Manual Verification (User)
+
+> The user should verify that:
+> 1. The "How It Works" page no longer mentions "16-frame" or "3×3, 4×4" NPR grids
+> 2. The "About" page pipeline and architecture sections show correct numbers
+> 3. The detection result card shows "NPR Grids: 2×2" instead of "2×2, 3×3, 4×4"
+> 4. Upload a video they know is real → expect "Authentic" verdict
+> 5. Upload a known deepfake → expect "Deepfake Detected" verdict

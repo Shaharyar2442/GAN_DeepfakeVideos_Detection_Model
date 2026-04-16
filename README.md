@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="frontend/visionsnare/public/logo.svg" alt="VisionSnare Logo" width="80" height="80" />
+
 # VisionSnare
 
 ### AI-Powered Deepfake Video Detection
@@ -45,43 +47,40 @@ CNN Backbone                  ← Spatial feature extraction per frame
 LSTM (hidden_dim=512)         ← 11-frame temporal sequence modelling
      │
      ▼
-Verdict + Confidence Score    → "Deepfake" or "Authentic"
+Verdict + Confidence Score    → "Fake" or "Real"
 ```
 
 ---
 
 ## Project Structure
 
-This repository contains the **model & backend API**. The React frontend lives alongside it as a sibling directory.
-
 ```
-parent-directory/
+VisionSnare/
+├── frontend/
+│   └── visionsnare/          # React + Vite web application
+│       ├── src/
+│       │   ├── pages/        # Detect, About, HowItWorks, Pricing
+│       │   └── components/   # Navbar, shared UI components
+│       ├── package.json
+│       └── vite.config.js
 │
-├── GAN_DeepfakeVideos_Detection_Model/   ← this repo
-│   ├── api/
-│   │   └── app.py            # FastAPI backend (POST /api/predict)
-│   ├── models/
-│   │   ├── visionsnare.py    # Main CNN-LSTM model
-│   │   ├── backbone.py       # CNN feature extractor
-│   │   ├── npr.py            # Spatial NPR module
-│   │   └── attention.py      # Temporal attention layer
-│   ├── training/
-│   │   └── train.py          # Training script
-│   ├── utils/
-│   │   └── predict_video.py  # Inference pipeline
-│   ├── checkpoints/
-│   │   └── model_best.pth    # Trained weights (~44 MB)
-│   ├── model_config.json     # Model hyperparameters
-│   ├── requirements.txt      # Core Python dependencies
-│   └── requirements-api.txt  # API-specific dependencies
-│
-└── frontend/
-    └── visionsnare/          # React + Vite web application
-        ├── src/
-        │   ├── pages/        # Detect, About, HowItWorks, Pricing
-        │   └── components/   # Navbar, shared UI components
-        ├── package.json
-        └── vite.config.js
+└── GAN_DeepfakeVideos_Detection_Model/
+    ├── api/
+    │   └── app.py            # FastAPI backend (POST /api/predict)
+    ├── models/
+    │   ├── visionsnare.py    # Main CNN-LSTM model
+    │   ├── backbone.py       # CNN feature extractor
+    │   ├── npr.py            # Spatial NPR module
+    │   └── attention.py      # Temporal attention layer
+    ├── training/
+    │   └── train.py          # Training script
+    ├── utils/
+    │   └── predict_video.py  # Inference pipeline
+    ├── checkpoints/
+    │   └── model_best.pth    # Trained weights (44 MB)
+    ├── model_config.json     # Model hyperparameters
+    ├── requirements.txt      # Core Python dependencies
+    └── requirements-api.txt  # API-specific dependencies
 ```
 
 ---
@@ -93,12 +92,20 @@ parent-directory/
 - **Python 3.9+**
 - **Node.js 18+**
 - **CUDA-capable GPU** (strongly recommended — CPU inference is very slow)
+- **Git**
 
 ---
 
 ## Backend Setup
 
-### 1. Create a Python virtual environment
+### 1. Clone the repository
+
+```bash
+git clone <your-repo-url>
+cd VisionSnare
+```
+
+### 2. Create a Python virtual environment
 
 ```bash
 cd GAN_DeepfakeVideos_Detection_Model
@@ -112,25 +119,25 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-### 2. Install PyTorch
+### 3. Install PyTorch
 
-Go to [pytorch.org/get-started/locally](https://pytorch.org/get-started/locally) and select the version that matches your CUDA. Example for CUDA 12.1:
+Go to [pytorch.org/get-started/locally](https://pytorch.org/get-started/locally) and select the version matching your system's CUDA version. Example for CUDA 12.1:
 
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
 
-### 3. Install remaining dependencies
+### 4. Install remaining dependencies
 
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-api.txt
 ```
 
-### 4. Start the backend API server
+### 5. Start the backend API server
 
 ```bash
-# Run from inside GAN_DeepfakeVideos_Detection_Model/
+# From inside GAN_DeepfakeVideos_Detection_Model/
 python -m uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
@@ -142,11 +149,11 @@ You should see:
 INFO:     Uvicorn running on http://0.0.0.0:8000
 ```
 
-> The model loads **once** at startup and is reused for every request.
+> The model loads **once** at startup. Each prediction request reuses it.
 
 **API Endpoint:**
 
-```http
+```
 POST http://localhost:8000/api/predict
 Content-Type: multipart/form-data
 
@@ -164,10 +171,10 @@ Response:
 
 ## Frontend Setup
 
-### 1. Navigate to the frontend directory
+### 1. Open a new terminal and navigate to the frontend
 
 ```bash
-cd ../frontend/visionsnare
+cd frontend/visionsnare
 ```
 
 ### 2. Install dependencies
@@ -182,27 +189,28 @@ npm install
 npm run dev
 ```
 
-Open **[http://localhost:5173](http://localhost:5173)** in your browser.
+The app will be available at **[http://localhost:5173](http://localhost:5173)**
 
-> The Vite dev server proxies `/api` requests to `http://localhost:8000` automatically — no CORS configuration needed.
+> The Vite dev server is pre-configured to proxy `/api` requests to `http://localhost:8000`, so no CORS issues.
 
 ### 4. Build for production
 
 ```bash
 npm run build
-# Output goes to frontend/visionsnare/dist/
 ```
+
+The output will be in `frontend/visionsnare/dist/`.
 
 ---
 
 ## Running Both Together
 
-You need **two terminals** open at the same time:
+You need **two terminals** running simultaneously:
 
-| Terminal | Directory | Command | Port |
-|----------|-----------|---------|------|
-| **Backend** | `GAN_DeepfakeVideos_Detection_Model/` | `python -m uvicorn api.app:app --port 8000` | `8000` |
-| **Frontend** | `frontend/visionsnare/` | `npm run dev` | `5173` |
+| Terminal | Command | Port |
+|----------|---------|------|
+| Backend  | `python -m uvicorn api.app:app --port 8000` (from `GAN_DeepfakeVideos_Detection_Model/`) | `8000` |
+| Frontend | `npm run dev` (from `frontend/visionsnare/`) | `5173` |
 
 Then open [http://localhost:5173](http://localhost:5173), go to **Detect**, upload a video, and click **Run VisionSnare Detection**.
 
@@ -214,13 +222,13 @@ Then open [http://localhost:5173](http://localhost:5173), go to **Detect**, uplo
 
 ### 1. Prepare the dataset
 
-Download [FakeAVCeleb](https://github.com/DASH-Lab/FakeAVCeleb) and preprocess it:
+Download the [FakeAVCeleb dataset](https://github.com/DASH-Lab/FakeAVCeleb) and place it inside the project. Then preprocess:
 
 ```bash
-# Preprocess videos
+# Preprocess FaceForensics videos
 python preprocess_FaceForensics_videos.py
 
-# Or use the Jupyter notebook
+# Or use the Jupyter notebook for FakeAVCeleb
 jupyter lab FakeAvCelebPreprocessing.ipynb
 ```
 
@@ -238,7 +246,7 @@ DATA_ROOT = r"C:\path\to\your\Processed_FakeAVCeleb"
 python training/train.py
 ```
 
-Logs are saved to `logs/`. The best checkpoint is automatically saved to `checkpoints/model_best.pth`.
+Training logs and TensorBoard events are saved to `logs/`. The best checkpoint is automatically saved to `checkpoints/model_best.pth`.
 
 ### 4. Monitor with TensorBoard
 
@@ -250,7 +258,7 @@ tensorboard --logdir logs/
 
 ## Swapping the Model Checkpoint
 
-No code changes needed — just edit `model_config.json`:
+If you retrain or have a new checkpoint, no code changes needed — just update `model_config.json`:
 
 ```json
 {
@@ -263,7 +271,7 @@ No code changes needed — just edit `model_config.json`:
 }
 ```
 
-Restart the backend and you're done. See [`MODEL_SWAP_GUIDE.md`](MODEL_SWAP_GUIDE.md) for full details.
+Then restart the backend. See `MODEL_SWAP_GUIDE.md` for full details.
 
 ---
 
@@ -274,7 +282,7 @@ Restart the backend and you're done. See [`MODEL_SWAP_GUIDE.md`](MODEL_SWAP_GUID
 | Frontend | React 18, Vite 5 |
 | Backend API | FastAPI, Uvicorn |
 | ML Framework | PyTorch 2.0+ |
-| Face Detection | MTCNN (facenet-pytorch) |
+| Face Detection | MTCNN |
 | Video Processing | OpenCV |
 | Training Monitoring | TensorBoard |
 | Dataset | FakeAVCeleb |
@@ -284,25 +292,25 @@ Restart the backend and you're done. See [`MODEL_SWAP_GUIDE.md`](MODEL_SWAP_GUID
 ## Common Issues
 
 **`No face detected` error**
-The video may be too short, low-resolution, or the face is occluded. Use a clear video with a visible frontal face.
+The video may be too short, low-resolution, or the face is too small/occluded. Try a clearer video with visible frontal faces.
 
 **`Video too short` error**
 VisionSnare needs at least 12 frames with detectable motion. Videos under ~1 second may fail.
 
 **Backend not reachable from frontend**
-Make sure the backend is running on port `8000` before starting the frontend.
+Make sure the backend is running on port `8000` before starting the frontend. Check `vite.config.js` proxy settings if using a different port.
 
 **CUDA out of memory**
-Force CPU mode by setting `CUDA_VISIBLE_DEVICES=""` before starting the backend. This will be significantly slower.
+Lower-end GPUs may struggle. You can force CPU inference by setting `CUDA_VISIBLE_DEVICES=""` before starting the backend, though this will be significantly slower.
 
 **`pip install` fails for `facenet-pytorch` / MTCNN**
-Install PyTorch before running `pip install -r requirements.txt` since `facenet-pytorch` depends on it.
+Ensure your PyTorch version is installed first before `requirements.txt`, since `facenet-pytorch` depends on it.
 
 ---
 
 ## Acknowledgements
 
-- [FakeAVCeleb](https://github.com/DASH-Lab/FakeAVCeleb) — training dataset
+- [FakeAVCeleb](https://github.com/DASH-Lab/FakeAVCeleb) — dataset for training and evaluation
 - [facenet-pytorch](https://github.com/timesler/facenet-pytorch) — MTCNN implementation
 - [PyTorch](https://pytorch.org) — deep learning framework
 
@@ -310,6 +318,6 @@ Install PyTorch before running `pip install -r requirements.txt` since `facenet-
 
 <div align="center">
 
-Built as a Final Year Project &nbsp;·&nbsp; VisionSnare
+Built as a Final Year Project · VisionSnare
 
 </div>

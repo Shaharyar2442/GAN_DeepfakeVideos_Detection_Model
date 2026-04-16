@@ -1,0 +1,111 @@
+/* TOP */
+.top { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; align-items: start; }
+.kicker { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.75rem; }
+.h2 { font-family: var(--serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 1.2rem; }
+.topText p { color: var(--muted); line-height: 1.8; margin-bottom: 0.9rem; font-size: 0.92rem; }
+.topText p strong { color: var(--navy); }
+.topText p em { color: var(--navy); font-style: italic; }
+
+.nucesBadge { margin-top: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.2rem; display: flex; align-items: center; gap: 12px; font-size: 1.3rem; }
+.nucesBadgeName { font-size: 0.8rem; font-weight: 600; color: var(--navy); }
+.nucesBadgeSub { font-size: 0.7rem; color: var(--muted); }
+
+.topCard { background: var(--navy); border-radius: 18px; padding: 2rem; color: white; }
+.cardLabel { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 0.6rem; }
+.results { display: flex; flex-direction: column; gap: 0.45rem; }
+.resultRow { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 7px 11px; }
+.resultLabel { font-size: 0.76rem; color: rgba(255,255,255,0.65); }
+.resultVal { font-size: 0.85rem; font-weight: 600; }
+.resultVal.good { color: #6EE7B7; }
+.resultVal.warn { color: #FCD34D; }
+.techPills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.techPill { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.14); color: white; font-size: 0.74rem; padding: 3px 10px; border-radius: 100px; }
+.hw { color: rgba(255,255,255,0.6); font-size: 0.8rem; line-height: 1.7; }
+
+/* SECTIONS */
+.section { margin-bottom: 4rem; }
+.sectionTitle { font-family: var(--serif); font-size: 1.7rem; color: var(--navy); margin-bottom: 1.4rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--border); }
+
+/* PROBLEM */
+.problemGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.problemCard { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; transition: transform 0.2s; }
+.problemCard:hover { transform: translateY(-3px); }
+.problemIcon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+.problemCard h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 0.4rem; }
+.problemCard p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+/* APPROACH */
+.approachGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+.approachText p { color: var(--muted); font-size: 0.92rem; line-height: 1.8; margin-bottom: 1rem; }
+.approachText strong { color: var(--navy); }
+.approachText em { color: var(--navy); font-style: italic; }
+.approachVisual { background: var(--navy); border-radius: 16px; padding: 1.8rem; }
+.visualTitle { color: rgba(255,255,255,0.45); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+.nprDemo { display: flex; align-items: center; gap: 1.2rem; justify-content: center; }
+.nprCol { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.nprLabel { color: rgba(255,255,255,0.6); font-size: 0.75rem; font-weight: 500; }
+.nprGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; width: 90px; }
+.realCell { width: 26px; height: 26px; border-radius: 4px; background: rgba(31,168,90,0.4); border: 1px solid rgba(31,168,90,0.5); }
+.fakeCell { width: 26px; height: 26px; border-radius: 4px; background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.3); }
+.anomaly { background: rgba(224,59,46,0.75); border-color: rgba(224,59,46,0.95); animation: flicker 1.5s infinite; }
+@keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.nprCaption { color: rgba(255,255,255,0.4); font-size: 0.67rem; text-align: center; }
+.nprArrow { color: rgba(255,255,255,0.3); font-size: 1.4rem; }
+
+/* ARCHITECTURE */
+.archSub { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.8rem; }
+.archSub strong { color: var(--navy); }
+.pipeline { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 0; margin-bottom: 2rem; }
+.pipelineItem { display: flex; align-items: flex-start; }
+.pipelineNode { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 90px; padding: 0.4rem 0.2rem; }
+.pipelineIcon { width: 44px; height: 44px; background: var(--navy); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.pipelineLabel { font-size: 0.7rem; font-weight: 600; color: var(--navy); text-align: center; }
+.pipelineDetail { font-size: 0.63rem; color: var(--muted); text-align: center; line-height: 1.3; }
+.pipelineArrow { color: var(--border); font-size: 1.1rem; padding-top: 0.8rem; }
+.archCards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.archCard { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+.archCardTitle { font-size: 0.9rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+.archCard p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+.archCard strong { color: var(--navy); }
+
+/* DATASETS */
+.datasetGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+.datasetCard { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+.datasetBadge { display: inline-block; background: var(--navy); color: white; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; margin-bottom: 0.75rem; }
+.datasetBadge.cross { background: var(--accent); }
+.datasetName { font-family: var(--serif); font-size: 1.4rem; color: var(--navy); margin-bottom: 0.6rem; }
+.datasetCard p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+.datasetCard strong { color: var(--navy); }
+.datasetResult { display: flex; justify-content: space-between; align-items: center; background: var(--off-white); border-radius: 8px; padding: 8px 12px; font-size: 0.85rem; }
+.datasetResult span { color: var(--muted); }
+.datasetResult strong { color: var(--navy); font-size: 1rem; }
+.genNote { display: flex; gap: 1rem; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 1.2rem 1.4rem; align-items: flex-start; }
+.genNote span { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.genNote p { font-size: 0.875rem; color: var(--navy-light); line-height: 1.65; }
+.genNote strong { color: var(--navy); }
+
+/* TEAM */
+.teamSub { color: var(--muted); font-size: 0.875rem; margin-bottom: 1.8rem; }
+.teamSub strong { color: var(--navy); }
+.teamGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+.teamCard { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; text-align: center; transition: transform 0.2s; }
+.teamCard:hover { transform: translateY(-3px); }
+.teamAvatar { width: 52px; height: 52px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin: 0 auto 0.9rem; }
+.teamName { font-weight: 600; margin-bottom: 0.2rem; color: var(--navy); font-size: 0.95rem; }
+.teamId { font-size: 0.75rem; color: var(--accent); font-weight: 500; margin-bottom: 0.3rem; }
+.teamRole { font-size: 0.8rem; color: var(--navy); font-weight: 500; line-height: 1.4; margin-bottom: 0.2rem; }
+.teamDesc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+.supervisorCard { background: var(--navy); border-radius: 14px; padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem; margin-top: 1.5rem; }
+.supAvatar { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.supLabel { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); margin-bottom: 0.2rem; }
+.supName { color: white; font-weight: 600; font-size: 1rem; margin-bottom: 0.1rem; }
+.supDept { color: rgba(255,255,255,0.55); font-size: 0.8rem; }
+
+@media(max-width: 900px) {
+  .top { grid-template-columns: 1fr; }
+  .problemGrid { grid-template-columns: 1fr 1fr; }
+  .approachGrid { grid-template-columns: 1fr; }
+  .archCards { grid-template-columns: 1fr; }
+  .datasetGrid { grid-template-columns: 1fr; }
+  .teamGrid { grid-template-columns: 1fr; }
+}

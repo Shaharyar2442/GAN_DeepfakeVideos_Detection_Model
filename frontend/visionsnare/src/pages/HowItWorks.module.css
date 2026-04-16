@@ -1,0 +1,13 @@
+.step { display: grid; grid-template-columns: 64px 1fr; gap: 2rem; padding: 2.2rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+.iconWrap { display: flex; flex-direction: column; align-items: center; }
+.icon { width: 52px; height: 52px; background: var(--navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.tag { display: inline-block; background: var(--off-white); border: 1px solid var(--border); color: var(--muted); font-size: 0.7rem; padding: 3px 10px; border-radius: 100px; margin-bottom: 0.6rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.title { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--navy); }
+.simple { color: var(--navy); font-size: 0.95rem; line-height: 1.75; margin-bottom: 0.9rem; }
+.toggle { background: none; border: 1.5px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.78rem; padding: 5px 14px; border-radius: 100px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.toggle:hover { border-color: var(--navy); color: var(--navy); }
+.modelBox { margin-top: 1rem; background: var(--navy); border-radius: 12px; padding: 1.2rem 1.4rem; }
+.modelLabel { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
+.modelText { color: rgba(255,255,255,0.75); font-size: 0.875rem; line-height: 1.75; margin-bottom: 0.9rem; }
+.techPills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.techPills span { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); font-size: 0.7rem; padding: 2px 9px; border-radius: 100px; font-weight: 500; }

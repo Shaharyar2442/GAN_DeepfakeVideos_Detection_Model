@@ -1,0 +1,11 @@
+{
+    "model_name": "VisionSnare",
+    "checkpoint": "checkpoints/model_best.pth",
+    "lstm_hidden_dim": 512,
+    "sequence_length": 12,
+    "image_size": [
+        256,
+        256
+    ],
+    "motion_threshold": 0.7
+}

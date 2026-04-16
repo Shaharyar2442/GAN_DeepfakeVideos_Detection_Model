@@ -1,0 +1,39 @@
+.grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 18px; padding: 2rem;
+  display: flex; flex-direction: column; gap: 1.4rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(13,27,62,0.1); }
+.card.featured { background: var(--navy); border-color: var(--navy); color: white; }
+
+.name { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.featured .name { color: rgba(255,255,255,0.5); }
+
+.badge { display: inline-block; background: #3B82F6; color: white; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; }
+
+.price { font-family: var(--serif); font-size: 2.8rem; line-height: 1; color: var(--navy); }
+.featured .price { color: white; }
+.price sup { font-size: 1.1rem; vertical-align: super; }
+.price small { font-family: var(--sans); font-size: 0.82rem; opacity: 0.55; }
+
+.desc { font-size: 0.85rem; color: var(--muted); }
+.featured .desc { color: rgba(255,255,255,0.55); }
+
+.features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+.features li { font-size: 0.85rem; display: flex; align-items: center; gap: 10px; color: var(--muted); }
+.featured .features li { color: rgba(255,255,255,0.7); }
+.features li::before { content: "✓"; font-weight: 700; color: var(--green); flex-shrink: 0; }
+.featured .features li::before { color: #6EE7B7; }
+
+.btn { padding: 12px; border-radius: 8px; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s; }
+.navy { background: var(--navy); color: white; border: none; }
+.navy:hover { background: var(--navy-light); }
+.white { background: white; color: var(--navy); border: none; }
+.white:hover { opacity: 0.88; }
+.outline { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+.outline:hover { border-color: var(--navy); }
+
+@media(max-width:768px){ .grid{ grid-template-columns:1fr; } }
