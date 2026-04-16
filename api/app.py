@@ -17,13 +17,20 @@ import shutil
 import tempfile
 import warnings
 
-import cv2
-import numpy as np
-import torch
-import torchvision.transforms as transforms
-from PIL import Image
-from fastapi import FastAPI, UploadFile, File, HTTPException
+try:
+    import cv2
+    import numpy as np
+    import torch
+    import torchvision.transforms as transforms
+    from PIL import Image
+    AI_MODULES_AVAILABLE = True
+except ImportError as e:
+    print(f"[VisionSnare API] WARNING: Missing AI packages. Video detection will fail. ({e})")
+    AI_MODULES_AVAILABLE = False
+
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 # ---------------------------------------------------------------------------
 # Ensure the project root is on sys.path so model imports resolve correctly.
@@ -32,8 +39,9 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from facenet_pytorch import MTCNN
-from models.visionsnare import VisionSnare
+if AI_MODULES_AVAILABLE:
+    from facenet_pytorch import MTCNN
+    from models.visionsnare import VisionSnare
 
 # ---------------------------------------------------------------------------
 # Configuration — loaded from model_config.json (edit THAT file to swap models)
@@ -53,7 +61,10 @@ SEQUENCE_LENGTH = _cfg.get("sequence_length", 12)
 IMAGE_SIZE = tuple(_cfg.get("image_size", [256, 256]))
 MOTION_THRESHOLD = _cfg.get("motion_threshold", 0.7)
 LSTM_HIDDEN_DIM = _cfg.get("lstm_hidden_dim", 512)
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if AI_MODULES_AVAILABLE:
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+else:
+    DEVICE = None
 
 warnings.filterwarnings("ignore")
 
@@ -66,22 +77,25 @@ print(f"[VisionSnare API] Seq length  : {SEQUENCE_LENGTH}")
 print(f"[VisionSnare API] LSTM hidden : {LSTM_HIDDEN_DIM}")
 print(f"[VisionSnare API] Loading model on {DEVICE} …")
 
-_model = VisionSnare(lstm_hidden_dim=LSTM_HIDDEN_DIM).to(DEVICE)
+if AI_MODULES_AVAILABLE:
+    _model = VisionSnare(lstm_hidden_dim=LSTM_HIDDEN_DIM).to(DEVICE)
 
-if not os.path.exists(CHECKPOINT_PATH):
-    raise FileNotFoundError(
-        f"Model checkpoint not found at {CHECKPOINT_PATH}. "
-        "Please ensure the checkpoint file exists at the path specified in model_config.json."
-    )
+    if not os.path.exists(CHECKPOINT_PATH):
+        raise FileNotFoundError(
+            f"Model checkpoint not found at {CHECKPOINT_PATH}. "
+            "Please ensure the checkpoint file exists at the path specified in model_config.json."
+        )
 
-_ckpt = torch.load(CHECKPOINT_PATH, map_location=DEVICE)
-_model.load_state_dict(_ckpt["model_state_dict"])
-_model.eval()
-print("[VisionSnare API] Model loaded successfully ✓")
+    _ckpt = torch.load(CHECKPOINT_PATH, map_location=DEVICE)
+    _model.load_state_dict(_ckpt["model_state_dict"])
+    _model.eval()
+    print("[VisionSnare API] Model loaded successfully ✓")
 
-# MTCNN face detector (also singleton)
-_detector = MTCNN(keep_all=True, device=DEVICE)
-print("[VisionSnare API] MTCNN face detector ready ✓")
+    # MTCNN face detector (also singleton)
+    _detector = MTCNN(keep_all=True, device=DEVICE)
+    print("[VisionSnare API] MTCNN face detector ready ✓")
+else:
+    print("[VisionSnare API] Skipping model loading due to missing dependencies.")
 
 # ---------------------------------------------------------------------------
 # Pre-processing helpers (copied from utils/predict_video.py — no changes)
@@ -167,6 +181,9 @@ def _align_and_crop_faces(frames, detector, size):
 # ---------------------------------------------------------------------------
 # FastAPI application
 # ---------------------------------------------------------------------------
+from api.auth import auth_router, get_current_user
+from api.database import get_history_by_username, add_history_entry
+
 app = FastAPI(title="VisionSnare API", version="1.0.0")
 
 app.add_middleware(
@@ -175,6 +192,29 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
+
+class HistoryEntry(BaseModel):
+    id: int
+    filename: str
+    date: str
+    size: str
+    verdict: str
+    confidence: float
+    duration: str
+
+@app.get("/api/history")
+async def read_history(current_user: dict = Depends(get_current_user)):
+    history = get_history_by_username(current_user["username"])
+    return {"history": history}
+
+@app.post("/api/history")
+async def append_history(entry: HistoryEntry, current_user: dict = Depends(get_current_user)):
+    entry_dict = entry.model_dump()
+    entry_dict["username"] = current_user["username"]
+    add_history_entry(entry_dict)
+    return {"status": "ok"}
 
 
 @app.get("/api/health")
@@ -189,6 +229,12 @@ async def predict(video: UploadFile = File(...)):
     Accept a video upload, run the full VisionSnare pipeline, and return
     the deepfake detection verdict with confidence score.
     """
+    if not AI_MODULES_AVAILABLE:
+        raise HTTPException(
+            status_code=500,
+            detail="AI modules (torch/cv2) are missing. Detection pipeline offline.",
+        )
+
     # ── 1. Validate file type ──────────────────────────────────────────
     allowed = (".mp4", ".mov", ".avi", ".mkv")
     ext = os.path.splitext(video.filename or "")[1].lower()
