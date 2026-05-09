@@ -5,7 +5,7 @@
  * The JWT token is stored in localStorage under "vs_token".
  */
 
-const BASE = '/api'
+const BASE = import.meta.env.VITE_API_BASE_URL || '/api'
 
 // ─── Token helpers ────────────────────────────────────────────────────────
 
