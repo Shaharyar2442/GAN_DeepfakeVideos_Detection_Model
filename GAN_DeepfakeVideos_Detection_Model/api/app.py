@@ -195,15 +195,7 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 
-from fastapi.staticfiles import StaticFiles
-import os
 
-# Ensure the dist directory exists to prevent startup crash if frontend isn't built yet
-dist_path = os.path.join(PROJECT_ROOT, "frontend", "visionsnare", "dist")
-if os.path.exists(dist_path):
-    app.mount("/", StaticFiles(directory=dist_path, html=True), name="frontend")
-else:
-    print(f"[VisionSnare] WARNING: Frontend dist folder not found at {dist_path}. Please run 'npm run build'.")
 
 class HistoryEntry(BaseModel):
     id: int
@@ -304,3 +296,11 @@ async def predict(video: UploadFile = File(...)):
     finally:
         # ── 7. Cleanup temp files ─────────────────────────────────────
         shutil.rmtree(tmp_dir, ignore_errors=True)
+
+from fastapi.staticfiles import StaticFiles
+
+dist_path = os.path.join(PROJECT_ROOT, "frontend", "visionsnare", "dist")
+if os.path.exists(dist_path):
+    app.mount("/", StaticFiles(directory=dist_path, html=True), name="frontend")
+else:
+    print(f"[VisionSnare] WARNING: Frontend dist folder not found at {dist_path}. Please run 'npm run build'.")
